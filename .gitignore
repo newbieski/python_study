@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # PS input file
-.in
+input.in
