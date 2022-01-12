@@ -17,3 +17,5 @@ while m > 0 :
     ans += s * mypow(n, mod - 2)
     ans %= mod
 print(ans)
+
+M=10**9+7;print(sum(int(i.split()[1])*pow(int(i.split()[0]),-1,M)for i in[*open(0)][1:])%M)
