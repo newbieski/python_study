@@ -33,3 +33,43 @@ for i in range(len(mint)) :
 
 brute(0, m, 0)
 print(ans)
+
+
+
+
+
+
+def dist(A, B):
+    ax, ay = A
+    bx, by = B
+    return abs(ax-bx) +abs(ay-by)
+
+N, M, H = list(map(int,input().split()))
+mints = []
+s = set()
+for n in range(N):
+    arr = list(map(int, input().split()))
+    for m in range(N):
+        if arr[m] == 2:
+            mints.append((n,m))
+        elif arr[m] == 1:
+            house = (n,m)
+
+visit = '0' * len(mints)
+s.add((*house, M, 0, visit))
+ret = 0
+while s:
+    nowX, nowY, HP, cnt, visited = s.pop()
+    now = (nowX, nowY)
+    if cnt > 0 and now == house:
+        ret = max(ret, cnt)
+        continue
+    for i in range(len(mints)):
+        if dist(now, mints[i]) <= HP and visited[i] == '0':
+            visited = visited[:i] + '1' + visited[i+1:]
+            s.add((*mints[i], HP-dist(now, mints[i])+H, cnt+1, visited))
+            visited = visited[:i] + '0' + visited[i+1:]
+    if not (now == house) and dist(now, house) <= HP :
+        s.add((*house, M-dist(now, house), cnt, visited))
+
+print(ret)
